@@ -1,7 +1,7 @@
 <?php
 
 	//Constants
-	$DEBUG = true;
+	$DEBUG = false;
 	
 	$IMAGE_FOLDER = "images/";
 	$TEXT_FOLDER = "text/";
@@ -12,7 +12,6 @@
 
 	//Process the Image
 	processFile();
-
 
 	//Main Function
 	function processFile()
@@ -80,7 +79,9 @@
 	
 
 		//Run Image Processing!
-		$command = "$TESSERACT_BASE_COMMAND $inputFilepath $OUTPUT_BASE";
+		//Quotes to handle filenames with spaces
+		//TODO: remove any single or double quotes in the name
+		$command = "$TESSERACT_BASE_COMMAND '$inputFilepath' '$OUTPUT_BASE'";
 		exec($command, $output, $ret);
 
 		//Prints!
@@ -104,6 +105,7 @@
 	//Print
 	function returnText($text)
 	{
-		echo nl2br($text);
+		echo $text;
+		//echo nl2br($text);
 	}
 ?>
